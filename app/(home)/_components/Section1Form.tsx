@@ -1,0 +1,148 @@
+import { useState, ChangeEvent, FormEvent } from "react";
+import { toast } from "react-hot-toast";
+import db from "@/appwrite/Services/dbServices";
+import { Button } from "@/components/ui/button";
+import { Checkbox } from "@/components/ui/checkbox";
+import { CheckedState } from "@radix-ui/react-checkbox";
+
+interface FormData {
+  firstName: string;
+  lastName: string;
+  email: string;
+  company: string;
+  country: string;
+}
+
+const Section1Form = () => {
+  const [formData, setFormData] = useState<FormData>({
+    firstName: "",
+    lastName: "",
+    email: "",
+    company: "",
+    country: "",
+  });
+
+  const [agreedToPrivacy, setAgreedToPrivacy] = useState(false);
+
+  const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setFormData((prevData) => ({ ...prevData, [name]: value }));
+  };
+
+  const handleCheckboxChange = (checked: CheckedState) => {
+    setAgreedToPrivacy(checked === true);
+  };
+
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    if (!agreedToPrivacy) {
+      toast.error("You must agree to the Privacy Policy.");
+      return;
+    }
+
+    try {
+      await db.waitlist.create(formData);
+      toast.success("You have successfully joined the waitlist!");
+      setFormData({
+        firstName: "",
+        lastName: "",
+        email: "",
+        company: "",
+        country: "",
+      });
+      setAgreedToPrivacy(false);
+    } catch (error) {
+      toast.error("Failed to join the waitlist. Please try again.");
+      console.error(error);
+    }
+  };
+
+  return (
+    <form className="pt-2" onSubmit={handleSubmit}>
+      <div className="flex items-center shrink-0 gap-3 flex-wrap justify-between">
+        <div className="grid gap-3 sm:grid-cols-2">
+          <div className="border relative overflow-hidden px-4 p border-black rounded-[10px] h-14">
+            <label htmlFor="firstName" className="relative inline-flex gap-2 items-center text-[10px] font-medium">
+              <span className="w-1 h-1 rounded-full bg-black"></span> FIRST NAME
+            </label>
+            <input
+              type="text"
+              name="firstName"
+              value={formData.firstName}
+              onChange={handleInputChange}
+              className="placeholder:text-foreground bg-transparent w-full outline-none border-0 focus:outline-none text-sm font-normal"
+            />
+          </div>
+          <div className="border relative overflow-hidden px-4 p border-black rounded-[10px] h-14">
+            <label htmlFor="lastName" className="relative inline-flex gap-2 items-center text-[10px] font-medium">
+              <span className="w-1 h-1 rounded-full bg-black"></span> LAST NAME
+            </label>
+            <input
+              type="text"
+              name="lastName"
+              value={formData.lastName}
+              onChange={handleInputChange}
+              className="placeholder:text-foreground bg-transparent w-full outline-none border-0 focus:outline-none text-sm font-normal"
+            />
+          </div>
+        </div>
+        <div className="grid gap-3 grid-cols-12">
+          <div className="col-span-full sm:col-span-7 border relative overflow-hidden px-4 p border-black rounded-[10px] h-14">
+            <label htmlFor="email" className="relative inline-flex gap-2 items-center text-[10px] font-medium">
+              <span className="w-1 h-1 rounded-full bg-black"></span> EMAIL ADDRESS
+            </label>
+            <input
+              type="text"
+              name="email"
+              value={formData.email}
+              onChange={handleInputChange}
+              className="placeholder:text-foreground bg-transparent w-full outline-none border-0 focus:outline-none text-sm font-normal"
+            />
+          </div>
+          <div className="col-span-12 sm:col-span-5 border relative overflow-hidden px-4 p border-black rounded-[10px] h-14">
+            <label htmlFor="company" className="relative inline-flex gap-2 items-center text-[10px] font-medium">
+              <span className="w-1 h-1 rounded-full bg-black"></span> COMPANY
+            </label>
+            <input
+              type="text"
+              name="company"
+              value={formData.company}
+              onChange={handleInputChange}
+              className="placeholder:text-foreground bg-transparent w-full outline-none border-0 focus:outline-none text-sm font-normal"
+            />
+          </div>
+        </div>
+        <div className="border relative overflow-hidden px-4 p border-black rounded-[10px] h-14">
+          <label htmlFor="country" className="relative inline-flex gap-2 items-center text-[10px] font-medium">
+            <span className="w-1 h-1 rounded-full bg-black"></span> COUNTRY
+          </label>
+          <input
+            type="text"
+            name="country"
+            value={formData.country}
+            onChange={handleInputChange}
+            className="placeholder:text-foreground bg-transparent w-full outline-none border-0 focus:outline-none text-sm font-normal"
+          />
+        </div>
+      </div>
+
+      <div className="flex gap-1 py-4 items-start">
+        <Checkbox id="terms" checked={agreedToPrivacy} onCheckedChange={handleCheckboxChange} />
+        <label
+          htmlFor="terms"
+          className="text-sm flex-1 font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+        >
+          By clicking this box you agree to our Privacy Policy
+        </label>
+      </div>
+      <div>
+        <Button type="submit" className="rounded-full">
+          Join the waitlist
+        </Button>
+      </div>
+    </form>
+  );
+};
+
+export default Section1Form;
