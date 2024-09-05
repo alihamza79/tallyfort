@@ -2,7 +2,8 @@
 
 import Link from "next/link";
 import * as React from "react";
-
+import { signIn,checkAuth } from "@/appwrite/Services/authServices";
+import { useRouter } from "next/navigation";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { cn } from "@/lib/utils";
 
@@ -20,6 +21,7 @@ import { IoMdLock } from "react-icons/io";
 import { Logo } from "./icons";
 import { Button } from "./ui/button";
 
+// Static component data
 const components: { title: string; href: string; description: string }[] = [
   {
     title: "Alert Dialog",
@@ -58,17 +60,14 @@ const components: { title: string; href: string; description: string }[] = [
   },
 ];
 
+// Main Header Component
 export function MainHeader() {
   const [header, setHeader] = React.useState(false);
   const [openMenu, setIsOpenMenu] = React.useState(false);
 
   React.useEffect(() => {
     const handleScroll = () => {
-      if (window.scrollY > 40) {
-        setHeader(true);
-      } else {
-        setHeader(false);
-      }
+      setHeader(window.scrollY > 40);
     };
 
     window.addEventListener("scroll", handleScroll);
@@ -81,23 +80,21 @@ export function MainHeader() {
   return (
     <header
       className={cn(
-        "  lg:flex py-5 z-50 h-[88px] items-center  justify-between    sticky left-0 right-0 top-0",
-        header ? "backdrop-blur-sm bg-white/[0.8] " : ""
+        "lg:flex py-5 z-50 h-[88px] items-center justify-between sticky left-0 right-0 top-0",
+        header ? "backdrop-blur-sm bg-white/[0.8]" : ""
       )}
     >
-      <div className=" container flex items-center justify-between">
+      <div className="container flex items-center justify-between">
         <div>
           <Link href={"/"}>
-            <Logo className=" max-w-[8rem]" />
+            <Logo className="max-w-[8rem]" />
           </Link>
         </div>
-        <div className=" hidden lg:block">
-          <NavigationsLinks setIsOpenMenu={setIsOpenMenu} />
-        </div>
-        <div className=" hidden lg:block">
+        
+        <div className="hidden lg:block">
           <AuthMenu />
         </div>
-        <div className=" lg:hidden">
+        <div className="lg:hidden">
           <Sheet open={openMenu} onOpenChange={setIsOpenMenu}>
             <SheetTrigger asChild>
               <button>
@@ -115,22 +112,132 @@ export function MainHeader() {
   );
 }
 
-const AuthMenu = () => (
-  <div className=" flex flex-col lg:flex-row lg:items-center gap-4">
-    <Button variant={"outline"} className=" gap-1">
-      <IoMdLock size={20} />
-      <span>Login</span>
-    </Button>
-    <Button>Get Started</Button>
-  </div>
-);
+// Auth Menu Component with Login Modal
+// Auth Menu Component with Login Modal and conditional rendering for login status
+// Auth Menu Component with Login Modal and conditional rendering for login status
+const AuthMenu = () => {
+  const [openLoginModal, setOpenLoginModal] = React.useState(false);
+  const [email, setEmail] = React.useState("");
+  const [password, setPassword] = React.useState("");
+  const [error, setError] = React.useState<string | null>(null);
+  const [isAuthenticated, setIsAuthenticated] = React.useState(false); // State to track user authentication
+  const router = useRouter();
+
+  // Check user authentication status on component mount
+  React.useEffect(() => {
+    const checkAuthStatus = async () => {
+      try {
+        const authenticated = await checkAuth(); // Using checkAuth function from services
+        setIsAuthenticated(authenticated);
+      } catch (error) {
+        setIsAuthenticated(false);
+      }
+    };
+
+    checkAuthStatus();
+  }, []);
+
+  const handleLogin = async (e: React.FormEvent) => {
+    e.preventDefault();
+    try {
+      await signIn(email, password); // Call the Appwrite signIn method
+      setError(null); // Clear any previous errors
+      setOpenLoginModal(false); // Close the modal after a successful login
+      setIsAuthenticated(true); // Mark the user as authenticated
+      router.push("/dashboard"); // Redirect to dashboard page on success
+    } catch (err) {
+      setError("Login failed. Please check your credentials.");
+    }
+  };
+
+  return (
+    <div className="flex flex-col lg:flex-row lg:items-center gap-4">
+      {isAuthenticated ? (
+        <Button
+          variant={"outline"}
+          className="gap-1"
+          onClick={() => router.push("/dashboard")}
+        >
+          <span>Dashboard</span>
+        </Button>
+      ) : (
+        <>
+          <Button
+            variant={"outline"}
+            className="gap-1"
+            onClick={() => setOpenLoginModal(true)}
+          >
+            <span>Login</span>
+          </Button>
+          <Button>Get Started</Button>
+        </>
+      )}
+
+      {/* Login Modal */}
+      {!isAuthenticated && (
+        <Sheet open={openLoginModal} onOpenChange={setOpenLoginModal}>
+          <SheetContent side="right">
+            <div className="p-4">
+              <h2 className="text-2xl font-semibold mb-4">Login</h2>
+              {error && <p className="text-red-500">{error}</p>}
+              <form onSubmit={handleLogin}>
+                <div className="mb-4">
+                  <label
+                    htmlFor="email"
+                    className="block text-sm font-medium text-gray-700"
+                  >
+                    Email
+                  </label>
+                  <input
+                    type="email"
+                    name="email"
+                    id="email"
+                    placeholder="Enter your email"
+                    className="mt-1 block w-full border border-gray-300 rounded-md p-2"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                  />
+                </div>
+                <div className="mb-4">
+                  <label
+                    htmlFor="password"
+                    className="block text-sm font-medium text-gray-700"
+                  >
+                    Password
+                  </label>
+                  <input
+                    type="password"
+                    name="password"
+                    id="password"
+                    placeholder="Enter your password"
+                    className="mt-1 block w-full border border-gray-300 rounded-md p-2"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                  />
+                </div>
+                <Button type="submit" className="w-full">
+                  Log In
+                </Button>
+              </form>
+            </div>
+          </SheetContent>
+        </Sheet>
+      )}
+    </div>
+  );
+};
+
+
+
+
+// Navigation Links Component
 interface NavigationsLinksProps {
   setIsOpenMenu: (isOpen: boolean) => void;
 }
 const NavigationsLinks: React.FC<NavigationsLinksProps> = ({
   setIsOpenMenu,
 }) => (
-  <NavigationMenu className=" w-full mx-auto lg:mx-0">
+  <NavigationMenu className="w-full mx-auto lg:mx-0">
     <NavigationMenuList className="flex-col lg:flex-row">
       <NavigationMenuItem onClick={() => setIsOpenMenu(false)}>
         <Link href="/" legacyBehavior passHref>
@@ -149,7 +256,7 @@ const NavigationsLinks: React.FC<NavigationsLinksProps> = ({
       <NavigationMenuItem onClick={() => setIsOpenMenu(false)}>
         <NavigationMenuTrigger>Pages</NavigationMenuTrigger>
         <NavigationMenuContent>
-          <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px] ">
+          <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px]">
             {components.map((component) => (
               <ListItem
                 key={component.title}
@@ -173,6 +280,7 @@ const NavigationsLinks: React.FC<NavigationsLinksProps> = ({
   </NavigationMenu>
 );
 
+// List Item Component
 const ListItem = React.forwardRef<
   React.ElementRef<"a">,
   React.ComponentPropsWithoutRef<"a">
