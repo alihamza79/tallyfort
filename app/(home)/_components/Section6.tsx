@@ -31,7 +31,7 @@ const Section6 = () => {
   }, []);
 
   if (!data) {
-    return <div>Loading...</div>; // Show loading state while fetching data
+    return <div></div>; // Show loading state while fetching data
   }
 
   return (

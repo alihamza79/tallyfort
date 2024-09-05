@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import AvatarCircles from "@/components/magicui/avatar-circles";
 import Section1Form from "./Section1Form";
 import db from "@/appwrite/Services/dbServices"; // Adjust the path based on your setup
+import Preloader from "./Preloader";
 
 // Define the type for the text-related data you expect to fetch from Appwrite
 interface HeroTextData {
@@ -47,7 +48,7 @@ const Section1 = () => {
   }, []);
 
   if (!textData) {
-    return <div>Loading...</div>; // Loading state while data is being fetched
+    return <Preloader/>; // Loading state while data is being fetched
   }
 
   return (

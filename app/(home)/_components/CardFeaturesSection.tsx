@@ -28,7 +28,7 @@ const CardFeaturesSection = () => {
   }, []);
 
   if (!data) {
-    return <div>Loading...</div>; // Render loading state
+    return <div></div>; // Render loading state
   }
 
   return (

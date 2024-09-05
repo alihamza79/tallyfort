@@ -49,7 +49,7 @@ const LatestNews = () => {
   }, []);
 
   if (!headerData || newsCards.length === 0) {
-    return <div>Loading...</div>; // Loading state while data is being fetched
+    return <div></div>; // Loading state while data is being fetched
   }
 
   return (

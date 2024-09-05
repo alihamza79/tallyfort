@@ -38,7 +38,7 @@ const CardFeaturesTwo = () => {
   }, []);
 
   if (!data1 || !data2) {
-    return <div>Loading...</div>; // Render loading state while fetching data
+    return <div></div>; // Render loading state while fetching data
   }
 
   return (

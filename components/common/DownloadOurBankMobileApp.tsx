@@ -43,7 +43,7 @@ const DownloadOurBankMobileApp = () => {
   }, []);
 
   if (!data) {
-    return <div>Loading...</div>; // Loading state while fetching data
+    return <div></div>; // Loading state while fetching data
   }
 
   return (

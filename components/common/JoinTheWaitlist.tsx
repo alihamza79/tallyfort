@@ -84,7 +84,7 @@ const JoinTheWaitlist = () => {
   };
 
   if (!bannerData) {
-    return <div>Loading...</div>; // Render a loading state while fetching banner data
+    return <div></div>; // Render a loading state while fetching banner data
   }
 
   return (

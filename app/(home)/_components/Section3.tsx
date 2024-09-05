@@ -49,7 +49,7 @@ const Section3 = () => {
 
   // Check if data is still loading
   if (!analyticsData || analyticsNumbers.length === 0) {
-    return <div>Loading...</div>;
+    return <div></div>;
   }
 
   return (
