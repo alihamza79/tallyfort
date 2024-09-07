@@ -60,12 +60,37 @@ const JoinTheWaitlist = () => {
     setAgreedToPrivacy(checked === true);
   };
 
+  // Validation function for email
+  const isValidEmail = (email: string) => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; // Simple email regex
+    return emailRegex.test(email);
+  };
+
+  // Validation function for telephone
+  const isValidTelephone = (telephone: string) => {
+    const telephoneRegex = /^[+0-9]*$/; // Allow only numbers and optional plus sign
+    return telephoneRegex.test(telephone);
+  };
+  
+
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     // Check for required fields
     if (!formData.firstName || !formData.lastName || !formData.email || !formData.country || !formData.telephone) {
       toast.error("Please fill in all required fields.");
+      return;
+    }
+
+    // Email validation
+    if (!isValidEmail(formData.email)) {
+      toast.error("Please enter a valid email address.");
+      return;
+    }
+
+    // Telephone validation
+    if (!isValidTelephone(formData.telephone)) {
+      toast.error("Please enter a valid telephone number (10-15 digits).");
       return;
     }
 

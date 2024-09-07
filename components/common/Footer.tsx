@@ -1,97 +1,73 @@
-import Link from "next/link";
+'use client';
+
+import Link from 'next/link';
+import { useState, useEffect } from 'react';
+import { Sheet, SheetContent } from '@/components/ui/sheet';
+import { Button } from '@/components/ui/button';
+import { signIn, checkAuth } from '@/appwrite/Services/authServices';
+import { useRouter } from 'next/navigation';
+import React from 'react';
 
 const Footer = () => {
+  const [openLoginModal, setOpenLoginModal] = useState(false);
+  const router = useRouter();
+
+  // Check and handle login status when clicking 'Office'
+  const handleLoginClick = async () => {
+    try {
+      const authenticated = await checkAuth(); // Check if the user is logged in
+      if (authenticated) {
+        router.push('/dashboard'); // If user is logged in, redirect to /dashboard
+      } else {
+        setOpenLoginModal(true); // If not logged in, open the login modal
+      }
+    } catch (error) {
+      setOpenLoginModal(true); // If there's an error, open the login modal
+    }
+  };
+
   const links = [
     {
-      name: "Links",
+      name: 'Links',
       items: [
-        {
-          name: "Home",
-          href: "/",
-        },
-        {
-          name: "Pricing",
-          href: "/",
-        },
-        {
-          name: "About us",
-          href: "/",
-        },
-        {
-          name: "Careers",
-          href: "/",
-        },
-        {
-          name: "Features",
-          href: "/",
-        },
-        {
-          name: "Demo the product",
-          href: "/",
-        },
-        {
-          name: "Blog",
-          href: "/",
-        },
+        { name: 'Home', href: '/' },
+        { name: 'Pricing', href: '/pricing' },
+        { name: 'About us', href: '/about' },
+        { name: 'Careers', href: '/careers' },
+        { name: 'Features', href: '/features' },
+        { name: 'Demo the product', href: '/demo' },
+        { name: 'Blog', href: '/blog' },
+        { name: 'Office', href: '#' }, // Renamed 'Login' to 'Office'
       ],
     },
     {
-      name: "Legal",
+      name: 'Legal',
       items: [
-        {
-          name: "Terms of use",
-          href: "/",
-        },
-        {
-          name: "Terms & conditions",
-          href: "/",
-        },
-        {
-          name: "Privacy policy",
-          href: "/",
-        },
-        {
-          name: "Cookie policy",
-          href: "/",
-        },
+        { name: 'Terms of use', href: '/terms-of-use' },
+        { name: 'Terms & conditions', href: '/terms-and-conditions' },
+        { name: 'Privacy policy', href: '/privacy-policy' },
+        { name: 'Cookie policy', href: '/cookie-policy' },
       ],
     },
     {
-      name: "Products",
+      name: 'Products',
       items: [
-        {
-          name: "​​Take the tour",
-          href: "/",
-        },
-        {
-          name: "Live chat",
-          href: "/",
-        },
-        {
-          name: "Self-service",
-          href: "/",
-        },
-        {
-          name: "Social",
-          href: "/",
-        },
-        {
-          name: "Mobile",
-          href: "/",
-        },
-        {
-          name: "babun Reviews",
-          href: "/",
-        },
+        { name: 'Take the tour', href: '/tour' },
+        { name: 'Live chat', href: '/chat' },
+        { name: 'Self-service', href: '/self-service' },
+        { name: 'Social', href: '/social' },
+        { name: 'Mobile', href: '/mobile' },
+        { name: 'Reviews', href: '/reviews' },
       ],
     },
   ];
+
   return (
     <footer className="container pb-6">
       <div className="flex py-10 xl:py-14 flex-col lg:flex-row items-start justify-between gap-6">
         <div className="basis-full w-full lg:basis-[40%]">
           <div className="sm:w-[365px] w-full mx-auto lg:mx-0 h-[340px] sm:h-[365px] rounded-full bg-[#FFF6C6] flex flex-col items-center justify-center gap-y-7">
-            <img src={"/images/logo.png"} alt="" width={180} height={75} />
+            <img src={'/images/logo.png'} alt="Logo" width={180} height={75} />
             <p className="text-center max-w-[260px] mx-auto opacity-70 text-xl">
               2190 Urban Terrace, Mirpur, Licensed in 50 states.
             </p>
@@ -100,7 +76,7 @@ const Footer = () => {
             </p>
           </div>
         </div>
-        <div className="basis-full lg:basis-[60%] flex flex-wrap gap-6  justify-between ">
+        <div className="basis-full lg:basis-[60%] flex flex-wrap gap-6 justify-between ">
           {links.map((l, index) => (
             <div key={index}>
               <div>
@@ -111,7 +87,8 @@ const Footer = () => {
                   <li key={link.name}>
                     <Link
                       className="text-lg hover:underline xl:text-xl font-normal opacity-60"
-                      href={link.href}
+                      href={link.name === 'Office' ? '#' : link.href}
+                      onClick={link.name === 'Office' ? handleLoginClick : undefined}
                     >
                       {link.name}
                     </Link>
@@ -123,30 +100,36 @@ const Footer = () => {
         </div>
       </div>
 
+      {/* Passing the modal state to the LoginSection */}
+      <LoginSection
+        openLoginModal={openLoginModal}
+        setOpenLoginModal={setOpenLoginModal}
+      />
+
       <div className="flex flex-col md:flex-row gap-6 md:items-center justify-between ">
         <p className="text-sm xl:text-base font-normal">
           Copyright @2023 babun inc.
         </p>
         <ul className="flex items-center gap-4">
           <li>
-            <Link className="text-base font-medium" href={"/"}>
+            <Link className="text-base font-medium" href={'/privacy-terms'}>
               Privacy & Terms.
             </Link>
           </li>
           <li>
-            <Link className="text-base font-medium" href={"/"}>
+            <Link className="text-base font-medium" href={'/cookies'}>
               Cookies.
             </Link>
           </li>
           <li>
-            <Link className="text-base font-medium" href={"/"}>
+            <Link className="text-base font-medium" href={'/contact'}>
               Contact Us
             </Link>
           </li>
         </ul>
         <ul className="flex items-center gap-4">
           <li>
-            <Link className="text-base font-medium" href={"/"}>
+            <Link className="text-base font-medium" href={'#'}>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="26"
@@ -162,7 +145,7 @@ const Footer = () => {
             </Link>
           </li>
           <li>
-            <Link className="text-base font-medium" href={"/"}>
+            <Link className="text-base font-medium" href={'#'}>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="25"
@@ -181,7 +164,7 @@ const Footer = () => {
             </Link>
           </li>
           <li>
-            <Link className="text-base font-medium" href={"/"}>
+            <Link className="text-base font-medium" href={'#'}>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="23"
@@ -214,7 +197,7 @@ const Footer = () => {
             </Link>
           </li>
           <li>
-            <Link className="text-base font-medium" href={"/"}>
+            <Link className="text-base font-medium" href={'#'}>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width={27}
@@ -249,6 +232,98 @@ const Footer = () => {
         </ul>
       </div>
     </footer>
+  );
+};
+
+// Login Section in Footer
+const LoginSection = ({
+  openLoginModal,
+  setOpenLoginModal,
+}: {
+  openLoginModal: boolean;
+  setOpenLoginModal: React.Dispatch<React.SetStateAction<boolean>>;
+}) => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState<string | null>(null);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const router = useRouter();
+
+  // Check authentication status on mount
+  React.useEffect(() => {
+    const checkAuthStatus = async () => {
+      try {
+        const authenticated = await checkAuth();
+        setIsAuthenticated(authenticated);
+      } catch (error) {
+        setIsAuthenticated(false);
+      }
+    };
+
+    checkAuthStatus();
+  }, []);
+
+  const handleLogin = async (e: React.FormEvent) => {
+    e.preventDefault();
+    try {
+      await signIn(email, password);
+      setError(null);
+      setOpenLoginModal(false);
+      setIsAuthenticated(true);
+      router.push('/dashboard');
+    } catch (err) {
+      setError('Login failed. Please check your credentials.');
+    }
+  };
+
+  return (
+    <Sheet open={openLoginModal} onOpenChange={setOpenLoginModal}>
+      <SheetContent side="right">
+        <div className="p-4">
+          <h2 className="text-2xl font-semibold mb-4">Login</h2>
+          {error && <p className="text-red-500">{error}</p>}
+          <form onSubmit={handleLogin}>
+            <div className="mb-4">
+              <label
+                htmlFor="email"
+                className="block text-sm font-medium text-gray-700"
+              >
+                Email
+              </label>
+              <input
+                type="email"
+                name="email"
+                id="email"
+                placeholder="Enter your email"
+                className="mt-1 block w-full border border-gray-300 rounded-md p-2"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+              />
+            </div>
+            <div className="mb-4">
+              <label
+                htmlFor="password"
+                className="block text-sm font-medium text-gray-700"
+              >
+                Password
+              </label>
+              <input
+                type="password"
+                name="password"
+                id="password"
+                placeholder="Enter your password"
+                className="mt-1 block w-full border border-gray-300 rounded-md p-2"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+              />
+            </div>
+            <Button type="submit" className="w-full">
+              Log In
+            </Button>
+          </form>
+        </div>
+      </SheetContent>
+    </Sheet>
   );
 };
 

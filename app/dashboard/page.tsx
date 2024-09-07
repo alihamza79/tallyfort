@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 import * as React from "react";
 import { useRouter } from "next/navigation";
@@ -48,9 +48,9 @@ const Dashboard = () => {
 
   // Convert data to CSV format
   const downloadCSV = () => {
-    const csvHeaders = ["First Name,Last Name,Email,Company,Country"];
+    const csvHeaders = ["First Name,Last Name,Email,Company,Country,Telephone"];
     const csvRows = waitlistData.map((entry) => 
-      `${entry.firstName},${entry.lastName},${entry.email},${entry.company},${entry.country}`
+      `${entry.firstName},${entry.lastName},${entry.email},${entry.company},${entry.country},${entry.telephone}`
     );
     const csvContent = [csvHeaders, ...csvRows].join("\n");
 
@@ -101,6 +101,7 @@ const Dashboard = () => {
               <th className="block md:table-cell text-left p-2 border-b">Email</th>
               <th className="block md:table-cell text-left p-2 border-b">Company</th>
               <th className="block md:table-cell text-left p-2 border-b">Country</th>
+              <th className="block md:table-cell text-left p-2 border-b">Telephone</th>
             </tr>
           </thead>
           <tbody className="block md:table-row-group">
@@ -111,6 +112,7 @@ const Dashboard = () => {
                 <td className="block md:table-cell p-2 border-b">{entry.email}</td>
                 <td className="block md:table-cell p-2 border-b">{entry.company}</td>
                 <td className="block md:table-cell p-2 border-b">{entry.country}</td>
+                <td className="block md:table-cell p-2 border-b">{entry.telephone}</td>
               </tr>
             ))}
           </tbody>

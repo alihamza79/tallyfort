@@ -35,12 +35,37 @@ const Section1Form = () => {
     setAgreedToPrivacy(checked === true);
   };
 
+  // Email validation
+  const isValidEmail = (email: string) => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  };
+
+  // Telephone validation
+  const isValidTelephone = (telephone: string) => {
+    const telephoneRegex = /^[+0-9]*$/; // Allow only numbers and optional plus sign
+    return telephoneRegex.test(telephone);
+  };
+  
+
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     // Check for required fields
     if (!formData.firstName || !formData.lastName || !formData.email || !formData.country || !formData.telephone) {
       toast.error("Please fill in all required fields.");
+      return;
+    }
+
+    // Validate email format
+    if (!isValidEmail(formData.email)) {
+      toast.error("Please enter a valid email address.");
+      return;
+    }
+
+    // Validate telephone format
+    if (!isValidTelephone(formData.telephone)) {
+      toast.error("Please enter a valid telephone number (10-15 digits).");
       return;
     }
 
@@ -114,7 +139,7 @@ const Section1Form = () => {
           </div>
           <div className="col-span-12 sm:col-span-5 border relative overflow-hidden px-4 p border-black rounded-[10px] h-14">
             <label htmlFor="company" className="relative inline-flex gap-2 items-center text-[10px] font-medium">
-               COMPANY
+              COMPANY
             </label>
             <input
               type="text"
