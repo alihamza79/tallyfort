@@ -169,7 +169,6 @@ const AuthMenu = () => {
           >
             <span>Login</span>
           </Button>
-          <Button>Get Started</Button>
         </>
       )}
 

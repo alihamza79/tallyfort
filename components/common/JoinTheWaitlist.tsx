@@ -11,8 +11,9 @@ interface FormData {
   firstName: string;
   lastName: string;
   email: string;
-  company: string;
+  company?: string; // Make company optional
   country: string;
+  telephone: string; // Add telephone attribute
 }
 
 interface WaitlistBannerData {
@@ -27,6 +28,7 @@ const JoinTheWaitlist = () => {
     email: "",
     company: "",
     country: "",
+    telephone: "", // Initialize telephone attribute
   });
 
   const [bannerData, setBannerData] = useState<WaitlistBannerData | null>(null);
@@ -61,6 +63,12 @@ const JoinTheWaitlist = () => {
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
+    // Check for required fields
+    if (!formData.firstName || !formData.lastName || !formData.email || !formData.country || !formData.telephone) {
+      toast.error("Please fill in all required fields.");
+      return;
+    }
+
     if (!agreedToPrivacy) {
       toast.error("You must agree to the Privacy Policy.");
       return;
@@ -75,6 +83,7 @@ const JoinTheWaitlist = () => {
         email: "",
         company: "",
         country: "",
+        telephone: "", // Reset telephone
       });
       setAgreedToPrivacy(false);
     } catch (error) {
@@ -117,6 +126,7 @@ const JoinTheWaitlist = () => {
                 value={formData.firstName}
                 onChange={handleInputChange}
                 className="lg:text-base text-foreground placeholder:text-foreground w-full bg-transparent outline-none border-0 focus:outline-none text-sm font-normal"
+                required
               />
             </div>
             <div className="border relative overflow-hidden px-4 p border-black rounded-[10px] h-14">
@@ -129,6 +139,7 @@ const JoinTheWaitlist = () => {
                 value={formData.lastName}
                 onChange={handleInputChange}
                 className="lg:text-base text-foreground placeholder:text-foreground w-full bg-transparent outline-none border-0 focus:outline-none text-sm font-normal"
+                required
               />
             </div>
           </div>
@@ -143,11 +154,12 @@ const JoinTheWaitlist = () => {
                 value={formData.email}
                 onChange={handleInputChange}
                 className="lg:text-base text-foreground placeholder:text-foreground w-full bg-transparent outline-none border-0 focus:outline-none text-sm font-normal"
+                required
               />
             </div>
             <div className="border relative overflow-hidden px-4 p border-black rounded-[10px] h-14">
               <label htmlFor="company" className="relative inline-flex gap-2 items-center text-base font-medium">
-                <span className="w-2 h-2 rounded-full bg-black"></span> COMPANY
+               COMPANY 
               </label>
               <input
                 type="text"
@@ -168,6 +180,21 @@ const JoinTheWaitlist = () => {
               value={formData.country}
               onChange={handleInputChange}
               className="lg:text-base text-foreground placeholder:text-foreground w-full bg-transparent outline-none border-0 focus:outline-none text-sm font-normal"
+              required
+            />
+          </div>
+          {/* Telephone input */}
+          <div className="border relative overflow-hidden px-4 p border-black rounded-[10px] h-14">
+            <label htmlFor="telephone" className="relative inline-flex gap-2 items-center text-base font-medium">
+              <span className="w-2 h-2 rounded-full bg-black"></span> TELEPHONE
+            </label>
+            <input
+              type="tel"
+              name="telephone"
+              value={formData.telephone}
+              onChange={handleInputChange}
+              className="lg:text-base text-foreground placeholder:text-foreground w-full bg-transparent outline-none border-0 focus:outline-none text-sm font-normal"
+              required
             />
           </div>
           <div className="flex items-center justify-center">

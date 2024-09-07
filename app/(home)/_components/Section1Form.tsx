@@ -9,8 +9,9 @@ interface FormData {
   firstName: string;
   lastName: string;
   email: string;
-  company: string;
+  company?: string; // Make company optional
   country: string;
+  telephone: string; // Add telephone attribute
 }
 
 const Section1Form = () => {
@@ -20,6 +21,7 @@ const Section1Form = () => {
     email: "",
     company: "",
     country: "",
+    telephone: "", // Initialize telephone attribute
   });
 
   const [agreedToPrivacy, setAgreedToPrivacy] = useState(false);
@@ -36,6 +38,12 @@ const Section1Form = () => {
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
+    // Check for required fields
+    if (!formData.firstName || !formData.lastName || !formData.email || !formData.country || !formData.telephone) {
+      toast.error("Please fill in all required fields.");
+      return;
+    }
+
     if (!agreedToPrivacy) {
       toast.error("You must agree to the Privacy Policy.");
       return;
@@ -50,6 +58,7 @@ const Section1Form = () => {
         email: "",
         company: "",
         country: "",
+        telephone: "", // Reset telephone
       });
       setAgreedToPrivacy(false);
     } catch (error) {
@@ -72,6 +81,7 @@ const Section1Form = () => {
               value={formData.firstName}
               onChange={handleInputChange}
               className="placeholder:text-foreground bg-transparent w-full outline-none border-0 focus:outline-none text-sm font-normal"
+              required
             />
           </div>
           <div className="border relative overflow-hidden px-4 p border-black rounded-[10px] h-14">
@@ -84,6 +94,7 @@ const Section1Form = () => {
               value={formData.lastName}
               onChange={handleInputChange}
               className="placeholder:text-foreground bg-transparent w-full outline-none border-0 focus:outline-none text-sm font-normal"
+              required
             />
           </div>
         </div>
@@ -93,16 +104,17 @@ const Section1Form = () => {
               <span className="w-1 h-1 rounded-full bg-black"></span> EMAIL ADDRESS
             </label>
             <input
-              type="text"
+              type="email"
               name="email"
               value={formData.email}
               onChange={handleInputChange}
               className="placeholder:text-foreground bg-transparent w-full outline-none border-0 focus:outline-none text-sm font-normal"
+              required
             />
           </div>
           <div className="col-span-12 sm:col-span-5 border relative overflow-hidden px-4 p border-black rounded-[10px] h-14">
             <label htmlFor="company" className="relative inline-flex gap-2 items-center text-[10px] font-medium">
-              <span className="w-1 h-1 rounded-full bg-black"></span> COMPANY
+               COMPANY
             </label>
             <input
               type="text"
@@ -123,6 +135,21 @@ const Section1Form = () => {
             value={formData.country}
             onChange={handleInputChange}
             className="placeholder:text-foreground bg-transparent w-full outline-none border-0 focus:outline-none text-sm font-normal"
+            required
+          />
+        </div>
+        {/* Telephone input */}
+        <div className="border relative overflow-hidden px-4 p border-black rounded-[10px] h-14">
+          <label htmlFor="telephone" className="relative inline-flex gap-2 items-center text-[10px] font-medium">
+            <span className="w-1 h-1 rounded-full bg-black"></span> TELEPHONE
+          </label>
+          <input
+            type="tel"
+            name="telephone"
+            value={formData.telephone}
+            onChange={handleInputChange}
+            className="placeholder:text-foreground bg-transparent w-full outline-none border-0 focus:outline-none text-sm font-normal"
+            required
           />
         </div>
       </div>
