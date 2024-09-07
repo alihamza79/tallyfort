@@ -6,7 +6,7 @@ import db from "@/appwrite/Services/dbServices"; // Adjust the path based on you
 
 // Define types for the data
 interface CardData {
-  id: number;
+  id: string; // Use string type since document ID will be a string
   title: string;
   description: string;
 }
@@ -38,7 +38,7 @@ const Section2 = () => {
           ButtonLinkText: featureDocument.ButtonLinkText,
           ButtonLinkHref: featureDocument.ButtonLinkHref,
           cards: cardsResponse.documents.map((card: any) => ({
-            id: card.id,
+            id: card.$id, // Use document ID
             title: card.title,
             description: card.description,
           })),
@@ -75,11 +75,11 @@ const Section2 = () => {
                 className="bg-white px-4 lg:px-8 py-6 space-y-3"
                 key={item.id}
               >
-                {/* Static images */}
+                {/* Static images using document ID */}
                 <img
                   className="w-[66px] h-[50px]"
                   height={66}
-                  src={`/images/${item.title.toLowerCase().replace(/[^a-z0-9]/g, "_")}.webp`}
+                  src={`/images/${item.id}.webp`} // Use document ID for image path
                   width={49}
                 />
                 <div>
@@ -101,7 +101,7 @@ const Section2 = () => {
                 <img
                   className="w-[66px] h-[50px]"
                   height={66}
-                  src={`/images/${item.title.toLowerCase().replace(/[^a-z0-9]/g, "_")}.webp`}
+                  src={`/images/${item.id}.webp`} // Use document ID for image path
                   width={49}
                 />
                 <div>
