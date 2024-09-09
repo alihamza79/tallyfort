@@ -6,8 +6,8 @@ import { Client, Account, Databases, Storage } from "appwrite";
 // const databaseId = process.env.REACT_APP_APPWRITE_DATABASE_ID;
 
 const Endpoint = "https://54.36.109.91/v1";
-const projectID = "66d64183002ad4afa1bb";
-const databaseId = "66d64260002c314c041d";
+const projectID = "66d801600012257ea9c7";
+const databaseId = "66d801b3002dfa732ea2";
 
 
 
