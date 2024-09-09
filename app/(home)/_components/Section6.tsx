@@ -56,7 +56,7 @@ const Section6 = () => {
             width={720}
             height={896}
             className="w-full object-cover shadow-xl lg:max-w-[720px]"
-            src="/images/desktop-D.webp" // Static image
+            src="/images/right_image.webp" // Static image
             alt="Right Image"
           />
         </div>
