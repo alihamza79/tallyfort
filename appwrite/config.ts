@@ -5,7 +5,7 @@ import { Client, Account, Databases, Storage } from "appwrite";
 // const projectID = process.env.REACT_APP_APPWRITE_PROJECT_ID;
 // const databaseId = process.env.REACT_APP_APPWRITE_DATABASE_ID;
 
-const Endpoint = "https://alihamza.site:8081/v1";
+const Endpoint = "https://hivefinty.com:8081/v1";
 const projectID = "66d801600012257ea9c7";
 const databaseId = "66d801b3002dfa732ea2";
 

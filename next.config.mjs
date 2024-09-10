@@ -26,6 +26,7 @@ const nextConfig = {
         hostname: "funny-horses-65cebeff8b.media.strapiapp.com",
       },
     ],
+    unoptimized:true
   },
 };
 
