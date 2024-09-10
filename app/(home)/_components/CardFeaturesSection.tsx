@@ -32,21 +32,21 @@ const CardFeaturesSection = () => {
   }
 
   return (
-    <section className="p-40 relative bg-gray-100 py-12 xl:py-24">
-      <div className="container mx-auto flex flex-col xl:flex-row items-center justify-center gap-8">
+    <section className="p-10 sm:p-20 relative bg-gray-100 py-12 xl:py-24">
+      <div className="container mx-auto flex flex-col xl:flex-row items-center justify-center gap-8 px-4">
         {/* Image Section */}
-        <div className="flex justify-center w-full xl:w-1/2">
+        <div className="flex justify-center w-full xl:w-1/2 mb-8 xl:mb-0">
           <Image
             src="/images/mobile.png" // Static image
             alt="Card Features"
             width={200}
             height={420}
-            className="w-full h-auto"
+            className="w-3/4 sm:w-2/3 xl:w-full h-auto" // Responsive width adjustments
           />
         </div>
 
         {/* Text Section */}
-        <div className="flex flex-col justify-center items-start w-full xl:w-1/2 space-y-6 text-center xl:text-left">
+        <div className="flex flex-col justify-center items-center xl:items-start w-full xl:w-1/2 space-y-6 text-center xl:text-left">
           <div className="flex justify-center xl:justify-start">
             <Image
               src="/images/logo.svg" // Static logo
@@ -56,7 +56,7 @@ const CardFeaturesSection = () => {
               className="h-auto"
             />
           </div>
-          <p className="text-5xl font-medium text-black">
+          <p className="text-3xl sm:text-4xl xl:text-5xl font-medium text-black">
             {data.title}
           </p>
         </div>

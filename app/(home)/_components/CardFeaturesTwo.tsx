@@ -46,31 +46,31 @@ const CardFeaturesTwo = () => {
       className="relative bg-white py-12 xl:py-24 bg-cover bg-center mb-12 xl:mb-24"
       style={{ backgroundImage: "url('/images/background.png')" }} // Static background image
     >
-      <div className="container mx-auto flex flex-col items-center gap-8">
+      <div className="container mx-auto flex flex-col items-center gap-8 px-4 sm:px-8">
         {/* Image and Logo Section */}
-        <div className="flex justify-center items-center w-full gap-8">
+        <div className="flex flex-col md:flex-row justify-center items-center w-full gap-4 md:gap-8">
           <Image
             src="/images/3D-Mobile.png" // Static 3D image
             alt="3D Interface"
             width={500} // Adjust width here
             height={500} // Adjust height here
-            className="object-contain max-w-s max-h-s" // Tailwind CSS classes to control size
+            className="object-contain w-64 h-64 md:w-96 md:h-96" // Tailwind CSS classes to control size on mobile and larger screens
           />
           <Image
             src="/images/logo.svg" // Static logo
             alt="Tallyfort Logo"
             width={150} // Adjust width here
             height={50} // Adjust height here
-            className="object-contain max-w-xs max-h-xs" // Tailwind CSS classes for logo
+            className="object-contain w-24 h-12 md:w-40 md:h-16" // Tailwind CSS classes for logo, responsive sizes
           />
         </div>
 
         {/* Text Section */}
         <div className="text-center w-full space-y-4">
-          <p className="text-lg font-medium text-black">
+          <p className="text-base sm:text-lg font-medium text-black">
             <strong>{data1.title}: </strong>{data1.description}
           </p>
-          <p className="text-lg font-medium text-black">
+          <p className="text-base sm:text-lg font-medium text-black">
             <strong>{data2.title}: </strong>{data2.description}
           </p>
         </div>
