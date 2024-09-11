@@ -7,13 +7,91 @@ import { Button } from '@/components/ui/button';
 import { signIn, checkAuth } from '@/appwrite/Services/authServices';
 import { useRouter } from 'next/navigation';
 import React from 'react';
+import db from '@/appwrite/Services/dbServices';
 
-const Footer = () => {
-  const [openLoginModal, setOpenLoginModal] = useState(false);
+interface CompanyDetails {
+  address: string;
+  phone: string;
+}
+
+interface FooterLink {
+  name: string;
+  href: string;
+  category: string;
+}
+
+interface FooterLinkCategory {
+  name: string;
+  items: FooterLink[];
+}
+
+const Footer: React.FC = () => {
+  const [openLoginModal, setOpenLoginModal] = useState<boolean>(false);
+  const [companyDetails, setCompanyDetails] = useState<CompanyDetails | null>(null);
+  const [footerLinks, setFooterLinks] = useState<FooterLinkCategory[]>([]);
+  const [bottomLinks, setBottomLinks] = useState<FooterLink[]>([]);
   const router = useRouter();
 
+  // Fetch company details and footer links from the database
+  useEffect(() => {
+    const fetchFooterData = async () => {
+      try {
+        // Fetch company details (address and phone number)
+        const companyData: any = await db.footerCompanyDetail.get('66e12b60001840b13a07');
+        
+        // Map the returned document to CompanyDetails by picking the fields
+        const mappedCompanyData: CompanyDetails = {
+          address: companyData.address,
+          phone: companyData.phone
+        };
+
+        setCompanyDetails(mappedCompanyData);
+
+        // Fetch footer links and map them into categories
+        const linksData = await db.footerLinks.list();
+        const sortedLinks = linksData.documents
+          .filter((link: any) => link.category !== "bottom") // Exclude "bottom" category
+          .reduce((acc: any[], link: any) => {
+            const categoryIndex = acc.findIndex((cat: any) => cat.name === link.category);
+            if (categoryIndex > -1) {
+              acc[categoryIndex].items.push({
+                name: link.name,
+                href: link.href,
+                category: link.category,
+              });
+            } else {
+              acc.push({
+                name: link.category,
+                items: [
+                  {
+                    name: link.name,
+                    href: link.href,
+                    category: link.category,
+                  },
+                ],
+              });
+            }
+            return acc;
+          }, []);
+
+        setFooterLinks(sortedLinks);
+
+        // Filter links for the bottom section (with category "bottom")
+        const bottomLinksData = linksData.documents.filter((link: any) => link.category === "bottom");
+        setBottomLinks(bottomLinksData.map((link: any) => ({
+          name: link.name,
+          href: link.href,
+          category: link.category,
+        })));
+      } catch (error) {
+        console.error('Error fetching footer data:', error);
+      }
+    };
+    fetchFooterData();
+  }, []);
+
   // Check and handle login status when clicking 'Office'
-  const handleLoginClick = async () => {
+  const handleLoginClick = async (): Promise<void> => {
     try {
       const authenticated = await checkAuth(); // Check if the user is logged in
       if (authenticated) {
@@ -26,64 +104,33 @@ const Footer = () => {
     }
   };
 
-  const links = [
-    {
-      name: 'Links',
-      items: [
-        { name: 'Home', href: '/' },
-        { name: 'Pricing', href: '/pricing' },
-        { name: 'About us', href: '/about' },
-        { name: 'Careers', href: '/careers' },
-        { name: 'Features', href: '/features' },
-        { name: 'Demo the product', href: '/demo' },
-        { name: 'Blog', href: '/blog' },
-        { name: 'Office', href: '#' }, // Renamed 'Login' to 'Office'
-      ],
-    },
-    {
-      name: 'Legal',
-      items: [
-        { name: 'Terms of use', href: '/terms-of-use' },
-        { name: 'Terms & conditions', href: '/terms-and-conditions' },
-        { name: 'Privacy policy', href: '/privacy-policy' },
-        { name: 'Cookie policy', href: '/cookie-policy' },
-      ],
-    },
-    {
-      name: 'Products',
-      items: [
-        { name: 'Take the tour', href: '/tour' },
-        { name: 'Live chat', href: '/chat' },
-        { name: 'Self-service', href: '/self-service' },
-        { name: 'Social', href: '/social' },
-        { name: 'Mobile', href: '/mobile' },
-        { name: 'Reviews', href: '/reviews' },
-      ],
-    },
-  ];
+  if (!companyDetails || footerLinks.length === 0) {
+    return <div></div>;
+  }
 
   return (
     <footer className="container pb-6">
       <div className="flex py-10 xl:py-14 flex-col lg:flex-row items-start justify-between gap-6">
         <div className="basis-full w-full lg:basis-[40%]">
           <div className="sm:w-[365px] w-full mx-auto lg:mx-0 h-[340px] sm:h-[365px] rounded-full bg-[#FFF6C6] flex flex-col items-center justify-center gap-y-7">
+            {/* Static logo */}
             <img src={'/images/logo.png'} alt="Logo" width={180} height={75} />
             <p className="text-center max-w-[260px] mx-auto opacity-70 text-xl">
-              2190 Urban Terrace, Mirpur, Licensed in 50 states.
+              {companyDetails.address}
             </p>
             <p className=" text-xl xl:text-2xl font-medium text-center">
-              +757 699-4478
+              {companyDetails.phone}
             </p>
           </div>
         </div>
-        <div className="basis-full lg:basis-[60%] flex flex-wrap gap-6 justify-between ">
-          {links.map((l, index) => (
+        <div className="basis-full lg:basis-[60%] flex flex-wrap gap-6 justify-between">
+          {footerLinks.map((l: any, index: number) => (
             <div key={index}>
               <div>
                 <h4 className="text-xl xl:text-2xl font-bold">{l.name}</h4>
               </div>
               <ul className="pt-2 space-y-2">
-                {l.items.map((link) => (
+                {l.items.map((link: any) => (
                   <li key={link.name}>
                     <Link
                       className="text-lg hover:underline xl:text-xl font-normal opacity-60"
@@ -108,26 +155,19 @@ const Footer = () => {
 
       <div className="flex flex-col md:flex-row gap-6 md:items-center justify-between ">
         <p className="text-sm xl:text-base font-normal">
-          Copyright @2023 babun inc.
+          Copyright @2023 Tallyfort inc.
         </p>
         <ul className="flex items-center gap-4">
-          <li>
-            <Link className="text-base font-medium" href={'/privacy-terms'}>
-              Privacy & Terms.
-            </Link>
-          </li>
-          <li>
-            <Link className="text-base font-medium" href={'/cookies'}>
-              Cookies.
-            </Link>
-          </li>
-          <li>
-            <Link className="text-base font-medium" href={'/contact'}>
-              Contact Us
-            </Link>
-          </li>
+          {bottomLinks.map((link) => (
+            <li key={link.name}>
+              <Link className="text-base font-medium" href={link.href}>
+                {link.name}
+              </Link>
+            </li>
+          ))}
         </ul>
         <ul className="flex items-center gap-4">
+          {/* Social icons */}
           <li>
             <Link className="text-base font-medium" href={'#'}>
               <svg
@@ -196,44 +236,14 @@ const Footer = () => {
               </svg>
             </Link>
           </li>
-          <li>
-            <Link className="text-base font-medium" href={'#'}>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width={27}
-                height={26}
-                viewBox="0 0 27 26"
-                fill="none"
-              >
-                <path
-                  d="M17.9335 8.67676C19.6574 8.67676 21.3107 9.36158 22.5297 10.5806C23.7487 11.7996 24.4335 13.4529 24.4335 15.1768V22.7601H20.1001V15.1768C20.1001 14.6021 19.8719 14.051 19.4655 13.6447C19.0592 13.2384 18.5081 13.0101 17.9335 13.0101C17.3588 13.0101 16.8077 13.2384 16.4014 13.6447C15.9951 14.051 15.7668 14.6021 15.7668 15.1768V22.7601H11.4335V15.1768C11.4335 13.4529 12.1183 11.7996 13.3373 10.5806C14.5563 9.36158 16.2096 8.67676 17.9335 8.67676Z"
-                  stroke="black"
-                  strokeWidth={2}
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-                <path
-                  d="M7.10006 9.75977H2.76672V22.7598H7.10006V9.75977Z"
-                  stroke="black"
-                  strokeWidth={2}
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-                <path
-                  d="M4.93339 6.51009C6.13001 6.51009 7.10006 5.54004 7.10006 4.34342C7.10006 3.14681 6.13001 2.17676 4.93339 2.17676C3.73677 2.17676 2.76672 3.14681 2.76672 4.34342C2.76672 5.54004 3.73677 6.51009 4.93339 6.51009Z"
-                  stroke="black"
-                  strokeWidth={2}
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-              </svg>
-            </Link>
-          </li>
         </ul>
       </div>
     </footer>
   );
 };
+
+
+
 
 // Login Section in Footer
 const LoginSection = ({

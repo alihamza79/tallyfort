@@ -83,7 +83,7 @@ export function MainHeader() {
       <div className="container flex items-center justify-between">
         <div>
           <Link href={"/"}>
-            <Logo className="max-w-[8rem]" />
+            <Logo className="max-w-[10rem] md:max-w-[12rem] mt-5 mb-5" />
           </Link>
         </div>
 

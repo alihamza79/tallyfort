@@ -64,5 +64,13 @@ export const collections: Collection[] = [
     id: "66d8bc6b002fd2c31ad6",
     name: "newsBody",
   },
+  {
+    id: "66e12a8f002480c3b532",
+    name: "footerCompanyDetail",
+  },
+  {
+    id: "66e12b710021461a8241",
+    name: "footerLinks",
+  },
   
 ];
