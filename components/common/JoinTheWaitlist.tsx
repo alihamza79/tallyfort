@@ -1,4 +1,4 @@
-'use client'
+"use client";
 
 import { useState, useEffect, FormEvent, ChangeEvent } from "react";
 import { toast } from "react-hot-toast";
@@ -38,7 +38,9 @@ const JoinTheWaitlist = () => {
   useEffect(() => {
     const fetchBannerData = async () => {
       try {
-        const bannerDocument = await db["waitlistBanner"].get("66d88fa1002da64b2675"); // Replace with your document ID
+        const bannerDocument = await db["waitlistBanner"].get(
+          "66d88fa1002da64b2675"
+        ); // Replace with your document ID
         setBannerData({
           title: bannerDocument.title,
           subtitle: bannerDocument.subtitle,
@@ -71,13 +73,18 @@ const JoinTheWaitlist = () => {
     const telephoneRegex = /^[+0-9]*$/; // Allow only numbers and optional plus sign
     return telephoneRegex.test(telephone);
   };
-  
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     // Check for required fields
-    if (!formData.firstName || !formData.lastName || !formData.email || !formData.country || !formData.telephone) {
+    if (
+      !formData.firstName ||
+      !formData.lastName ||
+      !formData.email ||
+      !formData.country ||
+      !formData.telephone
+    ) {
       toast.error("Please fill in all required fields.");
       return;
     }
@@ -128,7 +135,10 @@ const JoinTheWaitlist = () => {
       }}
       className="py-10 xl:py-20"
     >
-      <form onSubmit={handleSubmit} className="container flex flex-col lg:flex-row gap-6 lg:items-center">
+      <form
+        onSubmit={handleSubmit}
+        className="container flex flex-col lg:flex-row gap-6 lg:items-center"
+      >
         <div className="basis-full space-y-2 lg:basis-[40%]">
           <div>
             <h4 className="max-w-[356.094px] font-bold text-4xl xl:text-6xl leading-tight">
@@ -142,8 +152,17 @@ const JoinTheWaitlist = () => {
         <div className="basis-full space-y-5 lg:basis-[60%]">
           <div className="grid sm:grid-cols-2 gap-3">
             <div className="border relative overflow-hidden px-4 p border-black rounded-[10px] h-14">
-              <label htmlFor="firstName" className="relative inline-flex gap-2 items-center text-base font-medium">
-                <span className="w-2 h-2 rounded-full bg-black"></span> FIRST NAME
+              <label
+                htmlFor="firstName"
+                className="relative inline-flex gap-2 items-center text-base font-medium"
+              >
+                <img
+                  src="/images/asterik.svg"
+                  alt="Required"
+                  className="inline-block w-2 h-2 ml-1"
+                />
+                FIRST NAME
+                
               </label>
               <input
                 type="text"
@@ -155,8 +174,17 @@ const JoinTheWaitlist = () => {
               />
             </div>
             <div className="border relative overflow-hidden px-4 p border-black rounded-[10px] h-14">
-              <label htmlFor="lastName" className="relative inline-flex gap-2 items-center text-base font-medium">
-                <span className="w-2 h-2 rounded-full bg-black"></span> LAST NAME
+              <label
+                htmlFor="lastName"
+                className="relative inline-flex gap-2 items-center text-base font-medium"
+              >
+                <img
+                  src="/images/asterik.svg"
+                  alt="Required"
+                  className="inline-block w-2 h-2 ml-1"
+                />
+                LAST NAME
+               
               </label>
               <input
                 type="text"
@@ -170,8 +198,17 @@ const JoinTheWaitlist = () => {
           </div>
           <div className="grid sm:grid-cols-2 gap-3">
             <div className="border relative overflow-hidden px-4 p border-black rounded-[10px] h-14">
-              <label htmlFor="email" className="relative inline-flex gap-2 items-center text-base font-medium">
-                <span className="w-2 h-2 rounded-full bg-black"></span> EMAIL ADDRESS
+              <label
+                htmlFor="email"
+                className="relative inline-flex gap-2 items-center text-base font-medium"
+              >
+                <img
+                  src="/images/asterik.svg"
+                  alt="Required"
+                  className="inline-block w-2 h-2 ml-1"
+                />
+                EMAIL ADDRESS
+               
               </label>
               <input
                 type="email"
@@ -183,8 +220,11 @@ const JoinTheWaitlist = () => {
               />
             </div>
             <div className="border relative overflow-hidden px-4 p border-black rounded-[10px] h-14">
-              <label htmlFor="company" className="relative inline-flex gap-2 items-center text-base font-medium">
-               COMPANY 
+              <label
+                htmlFor="company"
+                className="relative inline-flex gap-2 items-center text-base font-medium"
+              >
+                COMPANY
               </label>
               <input
                 type="text"
@@ -196,8 +236,16 @@ const JoinTheWaitlist = () => {
             </div>
           </div>
           <div className="border relative overflow-hidden px-4 p border-black rounded-[10px] h-14">
-            <label htmlFor="country" className="relative inline-flex gap-2 items-center text-base font-medium">
-              <span className="w-2 h-2 rounded-full bg-black"></span> COUNTRY
+            <label
+              htmlFor="country"
+              className="relative inline-flex gap-2 items-center text-base font-medium"
+            >
+              <img
+                src="/images/asterik.svg"
+                alt="Required"
+                className="inline-block w-2 h-2 ml-1"
+              />
+              COUNTRY
             </label>
             <input
               type="text"
@@ -210,8 +258,17 @@ const JoinTheWaitlist = () => {
           </div>
           {/* Telephone input */}
           <div className="border relative overflow-hidden px-4 p border-black rounded-[10px] h-14">
-            <label htmlFor="telephone" className="relative inline-flex gap-2 items-center text-base font-medium">
-              <span className="w-2 h-2 rounded-full bg-black"></span> TELEPHONE
+            <label
+              htmlFor="telephone"
+              className="relative inline-flex gap-2 items-center text-base font-medium"
+            >
+              <img
+                src="/images/asterik.svg"
+                alt="Required"
+                className="inline-block w-2 h-2 ml-1"
+              />
+              TELEPHONE
+              
             </label>
             <input
               type="tel"
@@ -224,14 +281,20 @@ const JoinTheWaitlist = () => {
           </div>
           <div className="flex items-center justify-center">
             <div className="inline-flex items-center gap-2">
-              <Checkbox id="privacy" checked={agreedToPrivacy} onCheckedChange={handleCheckboxChange} />
+              <Checkbox
+                id="privacy"
+                checked={agreedToPrivacy}
+                onCheckedChange={handleCheckboxChange}
+              />
               <label htmlFor="privacy">
                 By clicking this box you agree to our Privacy Policy
               </label>
             </div>
           </div>
           <div className="flex items-center justify-center">
-            <Button type="submit" className="rounded-full">Join the waitlist</Button>
+            <Button type="submit" className="rounded-full">
+              Join the waitlist
+            </Button>
           </div>
         </div>
       </form>

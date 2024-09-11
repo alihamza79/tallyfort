@@ -46,13 +46,18 @@ const Section1Form = () => {
     const telephoneRegex = /^[+0-9]*$/; // Allow only numbers and optional plus sign
     return telephoneRegex.test(telephone);
   };
-  
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     // Check for required fields
-    if (!formData.firstName || !formData.lastName || !formData.email || !formData.country || !formData.telephone) {
+    if (
+      !formData.firstName ||
+      !formData.lastName ||
+      !formData.email ||
+      !formData.country ||
+      !formData.telephone
+    ) {
       toast.error("Please fill in all required fields.");
       return;
     }
@@ -98,7 +103,8 @@ const Section1Form = () => {
         <div className="grid gap-3 sm:grid-cols-2">
           <div className="border relative overflow-hidden px-4 p border-black rounded-[10px] h-14">
             <label htmlFor="firstName" className="relative inline-flex gap-2 items-center text-[10px] font-medium">
-              <span className="w-1 h-1 rounded-full bg-black"></span> FIRST NAME
+              <img src="/images/asterik.svg" alt="Required" className="inline-block w-2 h-2 ml-1" />
+              FIRST NAME
             </label>
             <input
               type="text"
@@ -111,7 +117,8 @@ const Section1Form = () => {
           </div>
           <div className="border relative overflow-hidden px-4 p border-black rounded-[10px] h-14">
             <label htmlFor="lastName" className="relative inline-flex gap-2 items-center text-[10px] font-medium">
-              <span className="w-1 h-1 rounded-full bg-black"></span> LAST NAME
+              <img src="/images/asterik.svg" alt="Required" className="inline-block w-2 h-2 ml-1" />
+              LAST NAME
             </label>
             <input
               type="text"
@@ -126,7 +133,8 @@ const Section1Form = () => {
         <div className="grid gap-3 grid-cols-12">
           <div className="col-span-full sm:col-span-7 border relative overflow-hidden px-4 p border-black rounded-[10px] h-14">
             <label htmlFor="email" className="relative inline-flex gap-2 items-center text-[10px] font-medium">
-              <span className="w-1 h-1 rounded-full bg-black"></span> EMAIL ADDRESS
+              <img src="/images/asterik.svg" alt="Required" className="inline-block w-2 h-2 ml-1" />
+              EMAIL ADDRESS
             </label>
             <input
               type="email"
@@ -152,7 +160,8 @@ const Section1Form = () => {
         </div>
         <div className="border relative overflow-hidden px-4 p border-black rounded-[10px] h-14">
           <label htmlFor="country" className="relative inline-flex gap-2 items-center text-[10px] font-medium">
-            <span className="w-1 h-1 rounded-full bg-black"></span> COUNTRY
+            <img src="/images/asterik.svg" alt="Required" className="inline-block w-2 h-2 ml-1" />
+            COUNTRY
           </label>
           <input
             type="text"
@@ -166,7 +175,8 @@ const Section1Form = () => {
         {/* Telephone input */}
         <div className="border relative overflow-hidden px-4 p border-black rounded-[10px] h-14">
           <label htmlFor="telephone" className="relative inline-flex gap-2 items-center text-[10px] font-medium">
-            <span className="w-1 h-1 rounded-full bg-black"></span> TELEPHONE
+            <img src="/images/asterik.svg" alt="Required" className="inline-block w-2 h-2 ml-1" />
+            TELEPHONE
           </label>
           <input
             type="tel"
