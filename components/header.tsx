@@ -81,11 +81,12 @@ export function MainHeader() {
       )}
     >
       <div className="container flex items-center justify-between">
-        <div>
-          <Link href={"/"}>
-            <Logo className="max-w-[10rem] md:max-w-[12rem] mt-5 mb-5" />
-          </Link>
-        </div>
+      <div>
+  <Link href={"/"}>
+    <Logo className="max-w-[8rem] md:max-w-[12rem] mt-4 mb-4" />
+  </Link>
+</div>
+
 
         <div className="lg:hidden">
           <Sheet open={openMenu} onOpenChange={setIsOpenMenu}>
