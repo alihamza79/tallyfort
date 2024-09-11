@@ -6,14 +6,16 @@ import db from "@/appwrite/Services/dbServices";
 import { Button } from "../ui/button";
 import { Checkbox } from "../ui/checkbox";
 import { CheckedState } from "@radix-ui/react-checkbox";
+import { countries } from "@/app/(home)/_components/data";
+
 
 interface FormData {
   firstName: string;
   lastName: string;
   email: string;
-  company?: string; // Make company optional
+  company?: string;
   country: string;
-  telephone: string; // Add telephone attribute
+  telephone: string;
 }
 
 interface WaitlistBannerData {
@@ -28,13 +30,12 @@ const JoinTheWaitlist = () => {
     email: "",
     company: "",
     country: "",
-    telephone: "", // Initialize telephone attribute
+    telephone: "",
   });
 
   const [bannerData, setBannerData] = useState<WaitlistBannerData | null>(null);
   const [agreedToPrivacy, setAgreedToPrivacy] = useState(false);
 
-  // Fetch the title and subtitle from Appwrite's waitlistBanner collection
   useEffect(() => {
     const fetchBannerData = async () => {
       try {
@@ -53,7 +54,9 @@ const JoinTheWaitlist = () => {
     fetchBannerData();
   }, []);
 
-  const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
+  const handleInputChange = (
+    e: ChangeEvent<HTMLInputElement | HTMLSelectElement>
+  ) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({ ...prevData, [name]: value }));
   };
@@ -62,22 +65,19 @@ const JoinTheWaitlist = () => {
     setAgreedToPrivacy(checked === true);
   };
 
-  // Validation function for email
   const isValidEmail = (email: string) => {
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; // Simple email regex
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return emailRegex.test(email);
   };
 
-  // Validation function for telephone
   const isValidTelephone = (telephone: string) => {
-    const telephoneRegex = /^[+0-9]*$/; // Allow only numbers and optional plus sign
+    const telephoneRegex = /^[+0-9]*$/;
     return telephoneRegex.test(telephone);
   };
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    // Check for required fields
     if (
       !formData.firstName ||
       !formData.lastName ||
@@ -89,13 +89,11 @@ const JoinTheWaitlist = () => {
       return;
     }
 
-    // Email validation
     if (!isValidEmail(formData.email)) {
       toast.error("Please enter a valid email address.");
       return;
     }
 
-    // Telephone validation
     if (!isValidTelephone(formData.telephone)) {
       toast.error("Please enter a valid telephone number (10-15 digits).");
       return;
@@ -115,7 +113,7 @@ const JoinTheWaitlist = () => {
         email: "",
         company: "",
         country: "",
-        telephone: "", // Reset telephone
+        telephone: "",
       });
       setAgreedToPrivacy(false);
     } catch (error) {
@@ -142,11 +140,11 @@ const JoinTheWaitlist = () => {
         <div className="basis-full space-y-2 lg:basis-[40%]">
           <div>
             <h4 className="max-w-[356.094px] font-bold text-4xl xl:text-6xl leading-tight">
-              {bannerData.title} {/* Dynamically fetched title */}
+              {bannerData.title}
             </h4>
           </div>
           <p className="text-sm sm:text-base xl:text-xl font-bold">
-            {bannerData.subtitle} {/* Dynamically fetched subtitle */}
+            {bannerData.subtitle}
           </p>
         </div>
         <div className="basis-full space-y-5 lg:basis-[60%]">
@@ -162,7 +160,6 @@ const JoinTheWaitlist = () => {
                   className="inline-block w-2 h-2 ml-1"
                 />
                 FIRST NAME
-                
               </label>
               <input
                 type="text"
@@ -184,7 +181,6 @@ const JoinTheWaitlist = () => {
                   className="inline-block w-2 h-2 ml-1"
                 />
                 LAST NAME
-               
               </label>
               <input
                 type="text"
@@ -208,7 +204,6 @@ const JoinTheWaitlist = () => {
                   className="inline-block w-2 h-2 ml-1"
                 />
                 EMAIL ADDRESS
-               
               </label>
               <input
                 type="email"
@@ -247,16 +242,21 @@ const JoinTheWaitlist = () => {
               />
               COUNTRY
             </label>
-            <input
-              type="text"
+            <select
               name="country"
               value={formData.country}
               onChange={handleInputChange}
               className="lg:text-base text-foreground placeholder:text-foreground w-full bg-transparent outline-none border-0 focus:outline-none text-sm font-normal"
               required
-            />
+            >
+              <option value="">Select Country</option>
+              {countries.map((country) => (
+                <option key={country.code} value={country.name}>
+                  {country.name}
+                </option>
+              ))}
+            </select>
           </div>
-          {/* Telephone input */}
           <div className="border relative overflow-hidden px-4 p border-black rounded-[10px] h-14">
             <label
               htmlFor="telephone"
@@ -268,7 +268,6 @@ const JoinTheWaitlist = () => {
                 className="inline-block w-2 h-2 ml-1"
               />
               TELEPHONE
-              
             </label>
             <input
               type="tel"

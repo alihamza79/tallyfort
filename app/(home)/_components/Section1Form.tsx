@@ -4,14 +4,14 @@ import db from "@/appwrite/Services/dbServices";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { CheckedState } from "@radix-ui/react-checkbox";
-
+import { countries } from "./data";
 interface FormData {
   firstName: string;
   lastName: string;
   email: string;
-  company?: string; // Make company optional
+  company?: string;
   country: string;
-  telephone: string; // Add telephone attribute
+  telephone: string;
 }
 
 const Section1Form = () => {
@@ -21,12 +21,12 @@ const Section1Form = () => {
     email: "",
     company: "",
     country: "",
-    telephone: "", // Initialize telephone attribute
+    telephone: "",
   });
 
   const [agreedToPrivacy, setAgreedToPrivacy] = useState(false);
 
-  const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
+  const handleInputChange = (e: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({ ...prevData, [name]: value }));
   };
@@ -35,22 +35,19 @@ const Section1Form = () => {
     setAgreedToPrivacy(checked === true);
   };
 
-  // Email validation
   const isValidEmail = (email: string) => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return emailRegex.test(email);
   };
 
-  // Telephone validation
   const isValidTelephone = (telephone: string) => {
-    const telephoneRegex = /^[+0-9]*$/; // Allow only numbers and optional plus sign
+    const telephoneRegex = /^[+0-9]*$/;
     return telephoneRegex.test(telephone);
   };
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    // Check for required fields
     if (
       !formData.firstName ||
       !formData.lastName ||
@@ -62,13 +59,11 @@ const Section1Form = () => {
       return;
     }
 
-    // Validate email format
     if (!isValidEmail(formData.email)) {
       toast.error("Please enter a valid email address.");
       return;
     }
 
-    // Validate telephone format
     if (!isValidTelephone(formData.telephone)) {
       toast.error("Please enter a valid telephone number (10-15 digits).");
       return;
@@ -88,7 +83,7 @@ const Section1Form = () => {
         email: "",
         company: "",
         country: "",
-        telephone: "", // Reset telephone
+        telephone: "",
       });
       setAgreedToPrivacy(false);
     } catch (error) {
@@ -163,14 +158,20 @@ const Section1Form = () => {
             <img src="/images/asterik.svg" alt="Required" className="inline-block w-2 h-2 ml-1" />
             COUNTRY
           </label>
-          <input
-            type="text"
+          <select
             name="country"
             value={formData.country}
             onChange={handleInputChange}
             className="placeholder:text-foreground bg-transparent w-full outline-none border-0 focus:outline-none text-sm font-normal"
             required
-          />
+          >
+            <option value="">Select Country</option>
+            {countries.map((country) => (
+              <option key={country.code} value={country.name}>
+                {country.name}
+              </option>
+            ))}
+          </select>
         </div>
         {/* Telephone input */}
         <div className="border relative overflow-hidden px-4 p border-black rounded-[10px] h-14">
