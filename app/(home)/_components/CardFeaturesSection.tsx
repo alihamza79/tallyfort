@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import db from '@/appwrite/Services/dbServices'; // Adjust the path as needed
+import { Logo } from '@/components/icons';
 
 interface Banner1Data {
   title: string;
@@ -48,13 +49,8 @@ const CardFeaturesSection = () => {
         {/* Text Section */}
         <div className="flex flex-col justify-center items-center xl:items-start w-full xl:w-1/2 space-y-6 text-center xl:text-left">
           <div className="flex justify-center xl:justify-start">
-            <Image
-              src="/images/logo.svg" // Static logo
-              alt="Tallyfort Logo"
-              width={200}
-              height={50}
-              className="h-auto"
-            />
+          <Logo className="max-w-[8rem] md:max-w-[12rem] mt-4 mb-4" />
+
           </div>
           <p className="text-3xl sm:text-4xl xl:text-5xl font-medium text-black">
             {data.title}

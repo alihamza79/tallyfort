@@ -8,6 +8,7 @@ import { signIn, checkAuth } from '@/appwrite/Services/authServices';
 import { useRouter } from 'next/navigation';
 import React from 'react';
 import db from '@/appwrite/Services/dbServices';
+import { Logo } from '../icons';
 
 interface CompanyDetails {
   address: string;
@@ -114,7 +115,7 @@ const Footer: React.FC = () => {
         <div className="basis-full w-full lg:basis-[40%]">
           <div className="sm:w-[365px] w-full mx-auto lg:mx-0 h-[340px] sm:h-[365px] rounded-full bg-[#FFF6C6] flex flex-col items-center justify-center gap-y-7">
             {/* Static logo */}
-            <img src={'/images/logo.png'} alt="Logo" width={180} height={75} />
+            <Logo className="max-w-[8rem] md:max-w-[12rem] mt-4 mb-4" />
             <p className="text-center max-w-[260px] mx-auto opacity-70 text-xl">
               {companyDetails.address}
             </p>

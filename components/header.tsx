@@ -76,17 +76,16 @@ export function MainHeader() {
   return (
     <header
       className={cn(
-        "lg:flex py-5 z-50 h-[88px] items-center justify-between sticky left-0 right-0 top-0",
+        "lg:flex py-5 z-50 h-[98px] items-center justify-between sticky left-0 right-0 top-0",
         header ? "backdrop-blur-sm bg-white/[0.8]" : ""
       )}
     >
       <div className="container flex items-center justify-between">
-      <div>
-  <Link href={"/"}>
-    <Logo className="max-w-[8rem] md:max-w-[12rem] mt-4 mb-4" />
-  </Link>
-</div>
-
+        <div>
+          <Link href={"/"}>
+            <Logo className="max-w-[8rem] md:max-w-[12rem] mt-4 mb-4" />
+          </Link>
+        </div>
 
         <div className="lg:hidden">
           <Sheet open={openMenu} onOpenChange={setIsOpenMenu}>
@@ -109,7 +108,9 @@ export function MainHeader() {
 interface NavigationsLinksProps {
   setIsOpenMenu: (isOpen: boolean) => void;
 }
-const NavigationsLinks: React.FC<NavigationsLinksProps> = ({ setIsOpenMenu }) => (
+const NavigationsLinks: React.FC<NavigationsLinksProps> = ({
+  setIsOpenMenu,
+}) => (
   <nav className="w-full mx-auto lg:mx-0">
     <NavigationMenu className="w-full mx-auto lg:mx-0">
       <NavigationMenuList className="flex-col lg:flex-row">

@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import db from "@/appwrite/Services/dbServices"; // Adjust the path based on your project structure
-
+import { StarIcon } from "lucide-react";
 interface TestimonialData {
   title: string;
   subTitle: string;
@@ -80,6 +80,13 @@ const Section7 = () => {
               height={52}
               className="object-cover max-w-[125px]"
             />
+            <div className="flex items-center gap-2 justify-between">
+              <StarIcon size={16} color="#FFE86B" />
+              <StarIcon size={16} color="#FFE86B" />
+              <StarIcon size={16} color="#FFE86B" />
+              <StarIcon size={16} color="#FFE86B" />
+              <StarIcon size={16} color="#FFE86B" />
+            </div>
             <p className="text-sm font-normal text-white">Latest avg rating</p>
           </div>
         </div>
@@ -93,11 +100,11 @@ const Section7 = () => {
         </div>
         <div className="flex pt-1 items-center justify-between flex-wrap gap-6">
           {/* Static logos */}
-          <img src="/images/google.webp" width={157} height={57} className="w-[14%] aspect-[4/3] object-contain" />
+          {/* <img src="/images/google.webp" width={157} height={57} className="w-[14%] aspect-[4/3] object-contain" />
           <img src="/images/logo2.png" width={157} height={57} className="w-[14%] aspect-[4/3] object-contain" />
           <img src="/images/logo3.png" width={157} height={57} className="w-[14%] aspect-[4/3] object-contain" />
           <img src="/images/logo4.png" width={157} height={57} className="w-[14%] aspect-[4/3] object-contain" />
-          <img src="/images/logo6.png" width={157} height={57} className="w-[14%] aspect-[4/3] object-contain" />
+          <img src="/images/logo6.png" width={157} height={57} className="w-[14%] aspect-[4/3] object-contain" /> */}
         </div>
       </div>
     </section>

@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import db from '@/appwrite/Services/dbServices'; // Adjust the path as needed
+import { Logo } from '@/components/icons';
 
 interface BannerData {
   title: string;
@@ -56,13 +57,8 @@ const CardFeaturesTwo = () => {
             height={500} // Adjust height here
             className="object-contain w-64 h-64 md:w-96 md:h-96" // Tailwind CSS classes to control size on mobile and larger screens
           />
-          <Image
-            src="/images/logo.svg" // Static logo
-            alt="Tallyfort Logo"
-            width={150} // Adjust width here
-            height={50} // Adjust height here
-            className="object-contain w-24 h-12 md:w-40 md:h-16" // Tailwind CSS classes for logo, responsive sizes
-          />
+                     <Logo className="max-w-[8rem] md:max-w-[12rem] mt-4 mb-4" />
+
         </div>
 
         {/* Text Section */}

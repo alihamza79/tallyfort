@@ -72,5 +72,13 @@ export const collections: Collection[] = [
     id: "66e12b710021461a8241",
     name: "footerLinks",
   },
+  {
+    id: "66e3d319002cccf37b8a",
+    name: "newsletter",
+  },
+  {
+    id: "66e3dacb003dcf60281b",
+    name: "logo",
+  },
   
 ];

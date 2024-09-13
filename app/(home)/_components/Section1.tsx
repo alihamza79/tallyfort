@@ -59,13 +59,13 @@ const Section1 = () => {
           className="absolute lg:hidden left-0 right-0 top-4"
           src={images.image1.url}
           alt="Description"
-          width={400}
+          width={350}
           height={500}
         />
       </div>
       <div className="flex-1 max-w-[325px] space-y-6">
         <div>
-          <h2 className="title-heading font-timmaana">{textData.title}</h2>
+          <h2 className="title-heading text-6xl font-timmaana">{textData.title}</h2>
         </div>
         <div>
           <h3 className=" text-4xl font-medium">Join the waitlist</h3>
@@ -86,7 +86,7 @@ const Section1 = () => {
       </div>
       <div className="flex-1"></div>
       <div className="flex-1 flex flex-col items-end">
-        <div className=" space-y-8 max-w-[306px]">
+        <div className=" space-y-8 max-w-[250px]">
           <div>
             <img
               src={images.image2.url}
