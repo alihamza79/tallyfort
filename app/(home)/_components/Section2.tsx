@@ -77,10 +77,10 @@ const Section2 = () => {
               >
                 {/* Static images using document ID */}
                 <img
-                  className="w-[66px] h-[50px]"
-                  height={66}
+                  className="w-[66px] h-[66px]"
+                 
                   src={`/images/${item.id}.webp`} // Use document ID for image path
-                  width={49}
+                  
                 />
                 <div>
                   <h3 className="text-xl font-bold">{item.title}</h3>
