@@ -18,11 +18,8 @@ const OurNewsletter = () => {
 
     try {
       // Query the newsletter collection to check if the email already exists
-      const existingEmails = await db.newsletter.list([Query.equal('email', [email])]);
 
-      if (existingEmails.documents.length > 0) {
-        toast.error('Already subscribed'); // Use toast for error message
-      } else {
+     
         // Create the payload for the database
         const payload = {
           email: email,
@@ -32,7 +29,7 @@ const OurNewsletter = () => {
         await db.newsletter.create(payload);
         toast.success('Successfully subscribed!'); // Use toast for success message
         setEmail(''); // Clear email input
-      }
+      
     } catch (error) {
       toast.error('Failed to subscribe. Please try again.'); // Use toast for error message
     } finally {
