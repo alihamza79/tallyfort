@@ -11,6 +11,8 @@ import Section7 from "./_components/Section7";
 import OurNewsletter from "@/components/common/OurNewsletter";
 import CardFeaturesSection from "./_components/CardFeaturesSection";
 import CardFeaturesTwo from "./_components/CardFeaturesTwo";
+import ScrollToTopButton from "@/components/common/ScrollToTopButton"; // Import your new component
+
 export const metadata: Metadata = {
   metadataBase: new URL("https://www.tallyfort.com/"),
   title: {
@@ -35,15 +37,16 @@ export default function Home() {
       <Section3 />
       <Section4 />
       <Section6 />
-      <CardFeaturesSection/>
-      <CardFeaturesTwo/>
+      <CardFeaturesSection />
+      <CardFeaturesTwo />
       <Section7 />
       <DownloadOurBankMobileApp />
       <LatestNews />
       <div className="container">
-            <JoinTheWaitlist key="join-the-waitlsdsdsdfdfdist" />
-          </div>
-      <OurNewsletter/>
+        <JoinTheWaitlist key="join-the-waitlsdsdsdfdfdist" />
+      </div>
+      <OurNewsletter />
+      <ScrollToTopButton /> {/* Add ScrollToTopButton here */}
     </main>
   );
 }
