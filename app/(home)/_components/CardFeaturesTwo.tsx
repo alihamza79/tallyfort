@@ -53,9 +53,9 @@ const CardFeaturesTwo = () => {
           <Image
             src="/images/3D-Mobile.png" // Static 3D image
             alt="3D Interface"
-            width={500} // Adjust width here
-            height={500} // Adjust height here
-            className="object-contain w-64 h-64 md:w-96 md:h-96" // Tailwind CSS classes to control size on mobile and larger screens
+            width={700} // Adjust width here
+            height={700} // Adjust height here
+            className="object-contain mt-[-50px] w-64 h-64 md:w-[550px] md:h-[550px]" // Tailwind CSS classes to control size on mobile and larger screens
           />
                      <Logo className="max-w-[8rem] md:max-w-[12rem] mt-4 mb-4" />
 
