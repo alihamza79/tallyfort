@@ -65,7 +65,7 @@ const Section1 = () => {
       </div>
       <div className="flex-1 max-w-[325px] space-y-6">
         <div>
-          <h2 className="title-heading text-6xl font-timmaana">{textData.title}</h2>
+          <h2 className="title-heading text-6xl font-timmaana w-auto lg:w-[500px]">{textData.title}</h2>
         </div>
         <div>
           <h3 className=" text-4xl font-medium">Join the waitlist</h3>
