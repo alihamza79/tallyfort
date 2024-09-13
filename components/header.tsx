@@ -80,7 +80,7 @@ export function MainHeader() {
         header ? "backdrop-blur-sm bg-white/[0.8]" : ""
       )}
     >
-      <div className="container flex items-center justify-between">
+      <div className="container flex items-center justify-between sm:mt-[0px] mt-[-40px]">
         <div>
           <Link href={"/"}>
             <Logo className="max-w-[8rem] md:max-w-[12rem] mt-4 mb-4" />

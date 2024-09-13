@@ -46,7 +46,7 @@ export default function Home() {
         <JoinTheWaitlist key="join-the-waitlsdsdsdfdfdist" />
       </div>
       <OurNewsletter />
-      <ScrollToTopButton /> {/* Add ScrollToTopButton here */}
+      <ScrollToTopButton /> 
     </main>
   );
 }
