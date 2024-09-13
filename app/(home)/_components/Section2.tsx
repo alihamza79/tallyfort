@@ -58,7 +58,7 @@ const Section2 = () => {
   return (
     <section className="relative bg-center bg-[#DCEFF0] py-12 xl:py-24">
       <div className="container lg:max-w-[90%] 2xl:max-w-[1800px] items-center overflow-hidden gap-8 flex flex-col xl:flex-row">
-        <div className="basis-full xl:basis-[30%]">
+        <div className="basis-full xl:basis-[30%] xl:mt-[-1050px]">
           <div className="space-y-8">
             <div>
               <h2 className="heading">{data.title}</h2>
