@@ -29,7 +29,7 @@ const Section1 = () => {
     const fetchData = async () => {
       try {
         // Fetch the document from the "hero" collection
-        const document = await db["hero"].get("66d805d40019545ceb90");
+        const document = await db["hero"].get("66fa6a66002e37ff16ad");
         
         // Set the state with only the text fields from the document
         setTextData({

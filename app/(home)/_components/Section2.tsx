@@ -26,7 +26,7 @@ const Section2 = () => {
     const fetchData = async () => {
       try {
         // Fetch the feature data from Appwrite's "feature" collection
-        const featureDocument = await db["feature"].get("66d80cba0010a107ac5d");
+        const featureDocument = await db["feature"].get("66fa6d6d00201388f76a");
 
         // Fetch the cards data from the "Cards" collection
         const cardsResponse = await db["Cards"].list(); // You can also apply a query if needed
@@ -58,7 +58,7 @@ const Section2 = () => {
   return (
     <section className="relative bg-center bg-[#DCEFF0] py-12 xl:py-24">
       <div className="container lg:max-w-[90%] 2xl:max-w-[1800px] items-center overflow-hidden gap-8 flex flex-col xl:flex-row">
-        <div className="basis-full xl:basis-[30%] xl:mt-[-1050px]">
+        <div className="basis-full xl:basis-[30%] xl:mb-[900px]">
           <div className="space-y-8">
             <div>
               <h2 className="heading">{data.title}</h2>

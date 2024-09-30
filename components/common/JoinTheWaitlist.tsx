@@ -40,7 +40,7 @@ const JoinTheWaitlist = () => {
     const fetchBannerData = async () => {
       try {
         const bannerDocument = await db["waitlistBanner"].get(
-          "66d88fa1002da64b2675"
+          "66faf406001058c5e08c"
         ); // Replace with your document ID
         setBannerData({
           title: bannerDocument.title,

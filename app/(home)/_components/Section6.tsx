@@ -16,7 +16,7 @@ const Section6 = () => {
     const fetchData = async () => {
       try {
         // Fetch data from the businessManagement collection
-        const document = await db["businessManagement"].get("66d89f46003a344ec7a3"); // Replace with actual document ID
+        const document = await db["businessManagement"].get("66fad50e0010f777af9b"); // Replace with actual document ID
         setData({
           mainTitle: document.mainTitle,
           cardTitle: document.cardTitle,

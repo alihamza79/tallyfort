@@ -38,7 +38,7 @@ const Footer: React.FC = () => {
     const fetchFooterData = async () => {
       try {
         // Fetch company details (address and phone number)
-        const companyData: any = await db.footerCompanyDetail.get('66e12b60001840b13a07');
+        const companyData: any = await db.footerCompanyDetail.get('66faf607001fd77c1e0a');
         
         // Map the returned document to CompanyDetails by picking the fields
         const mappedCompanyData: CompanyDetails = {

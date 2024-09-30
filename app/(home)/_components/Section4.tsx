@@ -22,7 +22,7 @@ const Section4 = () => {
     const fetchData = async () => {
       try {
         // Fetch data from the callToAction collection
-        const document = await db["callToAction"].get("66d89a030023bc2dc2f4"); // Replace with the actual document ID
+        const document = await db["callToAction"].get("66fad3eb000346e23d41"); // Replace with the actual document ID
 
         setData({
           title: document.title,

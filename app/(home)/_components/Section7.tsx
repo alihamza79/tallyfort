@@ -15,7 +15,7 @@ const Section7 = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const document = await db["testimonialsSection"].get("66d8b3e8002c75b86cf2"); // Replace with the actual document ID
+        const document = await db["testimonialsSection"].get("66faef990008e57a760a"); // Replace with the actual document ID
         setData({
           title: document.title,
           subTitle: document.subTitle,

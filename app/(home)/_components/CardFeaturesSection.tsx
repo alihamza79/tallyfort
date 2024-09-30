@@ -16,7 +16,7 @@ const CardFeaturesSection = () => {
     const fetchData = async () => {
       try {
         // Fetch data from the banner1 collection
-        const document = await db['banner1'].get('66d8a0c50039ff7f576d'); // Replace with the actual document ID
+        const document = await db['banner1'].get('66fad5c20020ff1fa68d'); // Replace with the actual document ID
         setData({
           title: document.title,
         });

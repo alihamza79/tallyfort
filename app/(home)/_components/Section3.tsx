@@ -25,7 +25,7 @@ const Section3 = () => {
     const fetchData = async () => {
       try {
         // Fetch the analytics document for the description, username, and role
-        const analyticsDocument = await db["analytics"].get("66d8934e003919c4b65c"); // Replace with the actual document ID
+        const analyticsDocument = await db["analytics"].get("66fad2480039ca095674"); // Replace with the actual document ID
         setAnalyticsData({
           description: analyticsDocument.description,
           username: analyticsDocument.username,

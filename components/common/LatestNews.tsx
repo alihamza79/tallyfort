@@ -25,7 +25,7 @@ const LatestNews = () => {
     const fetchNewsData = async () => {
       try {
         // Fetching newsHeader from Appwrite
-        const headerDocument = await db["newsHeader"].get("66d8bc3f0012336cfb7f");
+        const headerDocument = await db["newsHeader"].get("66faf1b60006b85f890c");
         setHeaderData({
           title: headerDocument.title,
           subTitle: headerDocument.subTitle,

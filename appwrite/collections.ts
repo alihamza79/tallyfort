@@ -5,79 +5,79 @@ export interface Collection {
 
 export const collections: Collection[] = [
   {
-    id: "66d801d50005f5dac1b2",
+    id: "66faf2f30023718658be",
     name: "waitlist",
   },
   {
-    id: "66d803e300115779e895",
+    id: "66fa68b10000c7cac19a",
     name: "hero",
   },
   {
-    id: "66d809d7000899e5c6bc",
+    id: "66fa6b7d002f2742abca",
     name: "feature",
   },
   {
-    id: "66d80cf20035da50c7f0",
+    id: "66fa6da200284b0c5a57",
     name: "Cards",
   },
   {
-    id: "66d88e0b001ef3c0c0f2",
+    id: "66faf3b7001dd5e6a28e",
     name: "waitlistBanner",
   },
   {
-    id: "66d891b9000c55112cf4",
+    id: "66fad1de00079dfbb7d7",
     name: "analytics",
   },
   {
-    id: "66d8935700307d4fe833",
+    id: "66fad254003c61d562e1",
     name: "analyticsNumbers",
   },
   {
-    id: "66d89973002338a96dbc",
+    id: "66fad34f00315a9aab1c",
     name: "callToAction",
   },
   {
-    id: "66d89e16002ccfd34b11",
+    id: "66fad4860013d1392a09",
     name: "businessManagement",
   },
   {
-    id: "66d89fbc003b87bd10b0",
+    id: "66fad584003703a4acd3",
     name: "banner1",
   },
   {
-    id: "66d8a427002a1c27601f",
+    id: "66fad5ee0025e69f5fb2",
     name: "banner2",
   },
   {
-    id: "66d8b30d000c7ef50fd7",
+    id: "66faef33000a02fffcd3",
     name: "testimonialsSection",
   },
   {
-    id: "66d8b5a00002cc43e8f8",
+    id: "66faf05a00107746ba21",
     name: "mobileAppDownload",
   },
   {
-    id: "66d8bc02001be9dca199",
+    id: "66faf16c000a863ffca9",
     name: "newsHeader",
   },
   {
-    id: "66d8bc6b002fd2c31ad6",
+    id: "66faf1d5003bfa1e84b5",
     name: "newsBody",
   },
   {
-    id: "66e12a8f002480c3b532",
+    id: "66faf5be0009732be335",
     name: "footerCompanyDetail",
   },
   {
-    id: "66e12b710021461a8241",
+    id: "66faf638000f1990a9ba",
     name: "footerLinks",
   },
   {
-    id: "66e3d319002cccf37b8a",
+    id: "66faf49500106e7149e7",
     name: "newsletter",
   },
   {
-    id: "66e3dacb003dcf60281b",
+    id: "66fafa070033d0606710",
     name: "logo",
   },
   

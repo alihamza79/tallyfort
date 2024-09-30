@@ -23,7 +23,7 @@ const DownloadOurBankMobileApp = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const document = await db["mobileAppDownload"].get("66d8b61a002be768394b"); // Replace with your document ID
+        const document = await db["mobileAppDownload"].get("66faf10d0005e70fda9c"); // Replace with your document ID
         setData({
           title: document.title,
           subtitle: document.subtitle,
